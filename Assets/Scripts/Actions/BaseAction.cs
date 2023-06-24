@@ -14,4 +14,7 @@ public abstract class BaseAction : MonoBehaviour
     {
         unit = GetComponent<Unit>();
     }
+
+    //Forced to implement in all child classes
+    public abstract string GetActionName();
 }
