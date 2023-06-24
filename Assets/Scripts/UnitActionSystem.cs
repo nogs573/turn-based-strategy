@@ -10,6 +10,10 @@ public class UnitActionSystem : MonoBehaviour
     public static UnitActionSystem Instance { get; private set; }
 
     public event EventHandler OnSelectedUnitChanged;
+    public event EventHandler OnSelectedActionChanged;
+    public event EventHandler<bool> OnBusyChanged;
+    public event EventHandler OnActionStarted;
+
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayer;
@@ -62,8 +66,17 @@ public class UnitActionSystem : MonoBehaviour
 
             if (selectedAction.IsValidActionGridPosition(mouseGridPosition))
             {
-                SetBusy();
-                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+                if (selectedUnit.TrySpendActionPoints(selectedAction))
+                {
+                    SetBusy();
+                    selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
+                    OnActionStarted?.Invoke(this, EventArgs.Empty);
+                }     
+                else
+                {
+                    //show visual or play sound to indicate you can't afford action
+                }           
             }
         } 
     }
@@ -97,11 +110,13 @@ public class UnitActionSystem : MonoBehaviour
     private void SetBusy()
     {
         isBusy = true;
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private void ClearBusy()
     {
         isBusy = false;
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private void SetSelectedUnit(Unit unit)
@@ -115,6 +130,8 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public Unit GetSelectedUnit()
