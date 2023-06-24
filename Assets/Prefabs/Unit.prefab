@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitAnimator: {fileID: 1985008841638768193}
-  maxMoveDistance: 1
+  maxMoveDistance: 4
 --- !u!65 &1638183059820202358
 BoxCollider:
   m_ObjectHideFlags: 0
