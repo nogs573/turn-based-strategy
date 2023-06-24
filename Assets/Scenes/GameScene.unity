@@ -303,8 +303,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.3006394, y: -0.00000001519273, z: 0.000000004789086, w: 0.9537379}
-  m_LocalPosition: {x: 2.62, y: 7, z: -6.83}
+  m_LocalRotation: {x: 0.26693353, y: -0.00000003086266, z: 0.000000008548461, w: 0.96371496}
+  m_LocalPosition: {x: 2.62, y: 5.999998, z: -6.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -452,8 +452,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383705724}
-  m_LocalRotation: {x: 0.3006394, y: -0.00000001519273, z: 0.000000004789086, w: 0.9537379}
-  m_LocalPosition: {x: 2.62, y: 7, z: -6.83}
+  m_LocalRotation: {x: 0.26693353, y: -0.00000003086266, z: 0.000000008548461, w: 0.96371496}
+  m_LocalPosition: {x: 2.62, y: 5.999998, z: -6.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -637,6 +637,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2355738009125254351, guid: ff070e704e126884d90602b038868cd9,
+        type: 3}
+      propertyPath: maxMoveDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4361952091153029563, guid: ff070e704e126884d90602b038868cd9,
         type: 3}
       propertyPath: m_Mesh
@@ -650,7 +655,7 @@ PrefabInstance:
     - target: {fileID: 8498988524114967885, guid: ff070e704e126884d90602b038868cd9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 8498988524114967885, guid: ff070e704e126884d90602b038868cd9,
         type: 3}
@@ -660,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 8498988524114967885, guid: ff070e704e126884d90602b038868cd9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 2.09
       objectReference: {fileID: 0}
     - target: {fileID: 8498988524114967885, guid: ff070e704e126884d90602b038868cd9,
         type: 3}
@@ -1035,7 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 7, z: -10}
+  m_FollowOffset: {x: 0, y: 5.999998, z: -10}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -1112,8 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a72ec5ab3d6b2a418945d6818cfca16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridDebugObjectPrefab: {fileID: 8217086548358540685, guid: 76832e7c10fe36f478d126c08efe97b2,
-    type: 3}
+  unit: {fileID: 2137583171}
 --- !u!4 &2053581874
 Transform:
   m_ObjectHideFlags: 0
