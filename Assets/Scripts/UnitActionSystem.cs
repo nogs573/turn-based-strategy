@@ -80,6 +80,11 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
+                    if (unit == selectedUnit)
+                    {
+                        //Unit was already selected
+                        return false;
+                    }
                     SetSelectedUnit(unit);
                     pickedUnit = true;
                 }
@@ -115,5 +120,10 @@ public class UnitActionSystem : MonoBehaviour
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
+    }
+
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
     }
 }
