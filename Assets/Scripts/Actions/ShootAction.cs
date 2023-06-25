@@ -86,7 +86,7 @@ public class ShootAction : BaseAction
     private void Shoot()
     {
         OnShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit, targetLocation = targetUnit.GetShootTargetLocation()});
-        targetUnit.Damage();
+        targetUnit.Damage(40);
     }
 
     public override string GetActionName()
