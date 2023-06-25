@@ -19,8 +19,7 @@ public class ActionButtonUI : MonoBehaviour
 
         button.onClick.AddListener(() => {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
-        });
-                
+        });                
     }
 
     public void UpdateSelectedVisual()

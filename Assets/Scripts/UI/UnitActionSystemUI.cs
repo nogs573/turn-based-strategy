@@ -23,6 +23,9 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_HideButtonsWhileBusy;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
+        TurnSystem.Instance.OnTurnUpdate += TurnSystem_OnTurnUpdate;
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+
         UpdateActionPoints();
         CreateUnitActionButtons();
         UpdateSelectedVisual();
@@ -85,5 +88,15 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         actionPointsText.text = "Action Points: " + selectedUnit.GetActionPoints();
+    }
+
+    private void TurnSystem_OnTurnUpdate(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
     }
 }
