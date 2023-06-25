@@ -8,6 +8,9 @@ public class Unit : MonoBehaviour
     private const int ACTION_POINTS_MAX = 3;
 
     public static event EventHandler OnAnyActionPointsChanged; //static event is fired whenever any instance of this class does something
+    public static event EventHandler OnAnyUnitSpawned;
+    public static event EventHandler OnAnyUnitDead;
+
 
     [SerializeField] private bool isEnemy;
     [SerializeField] private Transform shootTarget; //target point on the body for shooting
@@ -16,6 +19,7 @@ public class Unit : MonoBehaviour
     private HealthSystem healthSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
+    private ShootAction shootAction;
     private BaseAction[] baseActionArray;
     private int actionPoints = ACTION_POINTS_MAX;
 
@@ -23,6 +27,7 @@ public class Unit : MonoBehaviour
     {
         moveAction = GetComponent<MoveAction>();      
         spinAction = GetComponent<SpinAction>();  
+        shootAction =  GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
         healthSystem = GetComponent<HealthSystem>();
     }
@@ -35,6 +40,8 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnUpdate += TurnSystem_OnTurnUpdate;
 
         healthSystem.OnDead += HealthSystem_OnDead;
+
+        OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()
@@ -58,6 +65,11 @@ public class Unit : MonoBehaviour
     public SpinAction GetSpinAction()
     {
         return spinAction;
+    }
+
+    public ShootAction GetShootAction()
+    {
+        return shootAction;
     }
 
     public GridPosition GetGridPosition()
@@ -119,6 +131,8 @@ public class Unit : MonoBehaviour
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
         Destroy(gameObject);
+
+        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 
     public bool IsEnemy()
@@ -135,5 +149,10 @@ public class Unit : MonoBehaviour
     public Vector3 GetShootTargetLocation()
     {
         return shootTarget.position;
+    }
+
+    public float GetHealthNormalized()
+    {
+        return healthSystem.GetHealthNormalized();
     }
 }
