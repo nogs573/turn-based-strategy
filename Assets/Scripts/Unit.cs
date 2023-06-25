@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyActionPointsChanged; //static event is fired whenever any instance of this class does something
 
     [SerializeField] private bool isEnemy;
+    [SerializeField] private Transform shootTarget; //target point on the body for shooting
 
     private GridPosition gridPosition;
     private MoveAction moveAction;
@@ -57,6 +58,11 @@ public class Unit : MonoBehaviour
     public GridPosition GetGridPosition()
     {
         return gridPosition;
+    }
+
+    public Vector3 GetWorldPosition()
+    {
+        return transform.position;
     }
 
     public BaseAction[] GetBaseActionArray()
@@ -113,5 +119,10 @@ public class Unit : MonoBehaviour
     public void Damage()
     {
         Debug.Log(transform + " damaged!");
+    }
+
+    public Vector3 GetShootTargetLocation()
+    {
+        return shootTarget.position;
     }
 }
