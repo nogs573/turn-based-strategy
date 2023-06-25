@@ -134,7 +134,7 @@ public class UnitActionSystem : MonoBehaviour
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
-        SetSelectedAction(unit.GetMoveAction()); //could add GetDefaultAction if a unit can't move
+        SetSelectedAction(unit.GetAction<MoveAction>()); //could add GetDefaultAction if a unit can't move
         //Checks if the event is null (no subscribers), then proceeds with Invoke if not null
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
