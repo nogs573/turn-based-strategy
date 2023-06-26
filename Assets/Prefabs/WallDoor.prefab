@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23394126267786732}
   - component: {fileID: 64617828020867486}
   m_Layer: 0
-  m_Name: SM_Buildings_WallDoorDouble_5x3_01
+  m_Name: WallDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
