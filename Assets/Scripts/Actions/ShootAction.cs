@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 
 public class ShootAction : BaseAction
 {
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
     public event EventHandler<OnShootEventArgs> OnShoot;
 
     [SerializeField] private LayerMask obstacleLayerMask;
-
     public class OnShootEventArgs : EventArgs
     {
         public Unit targetUnit;
@@ -87,7 +87,8 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
-        OnShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit, targetLocation = targetUnit.GetShootTargetLocation()});
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit, targetLocation = targetUnit.GetShootTargetLocation()});
+        OnShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit, targetLocation = targetUnit.GetShootTargetLocation() });
         targetUnit.Damage(40);
     }
 
