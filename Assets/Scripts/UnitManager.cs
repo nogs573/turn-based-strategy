@@ -6,6 +6,8 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
+    public event EventHandler OnEnemyListChanged;
+    public event EventHandler OnAllFriendlyUnitDead;
 
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
@@ -39,11 +41,13 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
         {
             enemyUnitList.Add(unit);
+            OnEnemyListChanged?.Invoke(this, EventArgs.Empty);
         }
         else
         {
             friendlyUnitList.Add(unit);
         }
+        
     }
 
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
@@ -54,10 +58,15 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
         {
             enemyUnitList.Remove(unit);
+            OnEnemyListChanged?.Invoke(this, EventArgs.Empty);
         }
         else
         {
             friendlyUnitList.Remove(unit);
+            if (friendlyUnitList.Count == 0)
+            {
+                OnAllFriendlyUnitDead?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 
@@ -74,6 +83,11 @@ public class UnitManager : MonoBehaviour
     public List<Unit> GetEnemyUnitList()
     {
         return enemyUnitList;
+    }
+
+    public int GetEnemyCount()
+    {
+        return enemyUnitList.Count;
     }
 
 
