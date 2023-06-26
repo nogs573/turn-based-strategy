@@ -9,6 +9,8 @@ public class ShootAction : BaseAction
 {
     public event EventHandler<OnShootEventArgs> OnShoot;
 
+    [SerializeField] private LayerMask obstacleLayerMask;
+
     public class OnShootEventArgs : EventArgs
     {
         public Unit targetUnit;
@@ -134,6 +136,16 @@ public class ShootAction : BaseAction
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     //If target is on the same side of combat, don't count it
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                float unitShoulderHeight = 1.7f;
+
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()), obstacleLayerMask))
+                {
+                    //Aim to enemy passes through obstacle
                     continue;
                 }
 

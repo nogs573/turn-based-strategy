@@ -3108,7 +3108,7 @@ PrefabInstance:
     - target: {fileID: 1010186822367351844, guid: 097bb9b6f4f4ba04a8ba5f9964eb1b54,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1010186822367351844, guid: 097bb9b6f4f4ba04a8ba5f9964eb1b54,
         type: 3}
@@ -3118,7 +3118,7 @@ PrefabInstance:
     - target: {fileID: 1010186822367351844, guid: 097bb9b6f4f4ba04a8ba5f9964eb1b54,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1010186822367351844, guid: 097bb9b6f4f4ba04a8ba5f9964eb1b54,
         type: 3}
@@ -4830,6 +4830,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4583629038515028, guid: 6c9c8f866a80807479f0038322f300da, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23459660493924012, guid: 6c9c8f866a80807479f0038322f300da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64150364772019980, guid: 6c9c8f866a80807479f0038322f300da,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
