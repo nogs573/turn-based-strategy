@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GridSystemVisual : MonoBehaviour
 {
+	private float initTimer;
+	private bool didInitialRefresh;
 	public static GridSystemVisual Instance { get; private set; }
 	
 	[Serializable]
@@ -39,6 +41,9 @@ public class GridSystemVisual : MonoBehaviour
             return;
         }
         Instance = this;
+
+		initTimer = 0.02f;
+		didInitialRefresh = false;
     }
 
     private void Start()
@@ -61,10 +66,24 @@ public class GridSystemVisual : MonoBehaviour
 
 		UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
 		LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
+        HealthSystem.OnAnyUnitDead += HealthSystem_OnAnyUnitDead;
 		UpdateGridVisual();
 	}
 
-	public void HideAllGridPositions()
+    private void Update()
+    {
+        if (!didInitialRefresh)
+		{
+			initTimer -= Time.deltaTime;
+			if (initTimer <= 0) 
+			{
+				UpdateGridVisual();
+				didInitialRefresh = true;
+			}
+		}
+    }
+
+    public void HideAllGridPositions()
 	{
 		for (int x = 0; x < width; x++)
 		{
@@ -79,9 +98,9 @@ public class GridSystemVisual : MonoBehaviour
 	private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
 	{
 		List<GridPosition> gridPositionList = new List<GridPosition>();
-        for (int x = -range; x < range; x++)
+        for (int x = -range; x <= range; x++)
         {
-            for (int z = -range; z < range; z++)
+            for (int z = -range; z <= range; z++)
             {
 				GridPosition testGridPosition = gridPosition + new GridPosition(x,z);
 
@@ -103,8 +122,29 @@ public class GridSystemVisual : MonoBehaviour
 		ShowGridPositionList(gridPositionList, gridVisualType);
     }
 
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    {
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
 
-	public void ShowGridPositionList(List<GridPosition> gridPositionList, GridVisualType gridVisualType)
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                gridPositionList.Add(testGridPosition);
+            }
+        }
+
+        ShowGridPositionList(gridPositionList, gridVisualType);
+    }
+
+
+    public void ShowGridPositionList(List<GridPosition> gridPositionList, GridVisualType gridVisualType)
 	{
 		foreach (GridPosition gridPosition in gridPositionList)
 		{
@@ -134,6 +174,13 @@ public class GridSystemVisual : MonoBehaviour
                 gridVisualType = GridVisualType.Red;
 				ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAction.GetRange(), GridVisualType.RedSoft);
                 break;
+			case GrenadeAction grenadeAction:
+				gridVisualType = GridVisualType.Yellow;
+				break;
+			case SwordAction swordAction:
+				gridVisualType = GridVisualType.Red;
+				ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), swordAction.GetRange(), GridVisualType.RedSoft);
+				break;
         }
 		ShowGridPositionList(selectedAction.GetValidActionGridList(), gridVisualType);
 	}
@@ -144,6 +191,11 @@ public class GridSystemVisual : MonoBehaviour
 	}
 
 	private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e)
+	{
+		UpdateGridVisual();
+	}
+
+	private void HealthSystem_OnAnyUnitDead(object sender, EventArgs e)
 	{
 		UpdateGridVisual();
 	}

@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class GrenadeAction : BaseAction
 {
+    private const int GRENADE_ACTION_COST = 2;
     [SerializeField] private Transform grenadeProjectilePrefab;
+    [SerializeField] private LayerMask obstacleLayerMask;
 
     private int maxThrowDistance = 7;
     public override string GetActionName()
@@ -13,9 +15,14 @@ public class GrenadeAction : BaseAction
         return "Grenade";
     }
 
+    public override int GetActionPointsCost()
+    {
+        return GRENADE_ACTION_COST;
+    }
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition actionGridPosition)
     {
-        return new EnemyAIAction() { gridPosition = actionGridPosition, actionValue = 10 };
+        return new EnemyAIAction() { gridPosition = actionGridPosition, actionValue = 0 };
     }
 
     public override List<GridPosition> GetValidActionGridList()
@@ -41,6 +48,16 @@ public class GrenadeAction : BaseAction
 
                 if (testDistance > maxThrowDistance)
                 {
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 throwDir = LevelGrid.Instance.GetWorldPosition(testGridPosition) - unitWorldPosition;
+                float unitShoulderHeight = 1.7f;
+
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, throwDir, Vector3.Distance(unitWorldPosition, LevelGrid.Instance.GetWorldPosition(testGridPosition)), obstacleLayerMask))
+                {
+                    //Trying to throw grenade through wall
                     continue;
                 }
 

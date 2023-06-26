@@ -5,7 +5,7 @@ using System;
 
 public class Unit : MonoBehaviour
 {       
-    private const int ACTION_POINTS_MAX = 3;
+    [SerializeField] private int actionPointsMax = 3;
 
     public static event EventHandler OnAnyActionPointsChanged; //static event is fired whenever any instance of this class does something
     public static event EventHandler OnAnyUnitSpawned;
@@ -18,12 +18,13 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
-    private int actionPoints = ACTION_POINTS_MAX;
+    private int actionPoints;
 
     private void Awake() 
     {
         baseActionArray = GetComponents<BaseAction>();
         healthSystem = GetComponent<HealthSystem>();
+        actionPoints = actionPointsMax;
     }
     
     private void Start()
@@ -111,7 +112,7 @@ public class Unit : MonoBehaviour
     {
         if ((IsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!IsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
         {
-            actionPoints = ACTION_POINTS_MAX;
+            actionPoints = actionPointsMax;
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
