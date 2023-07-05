@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1638183059820202358}
   - component: {fileID: -6826553240160744930}
   - component: {fileID: -404011460045737911}
+  - component: {fileID: -8120354522865750153}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -56,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e7039b7db6651a44a4bf9bc93aa5493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionPointsMax: 4
+  actionPointsMax: 9
   isEnemy: 0
   shootTarget: {fileID: 4067014599112134479}
 --- !u!114 &2355738009125254351
@@ -195,6 +196,18 @@ MonoBehaviour:
   ragdollPrefab: {fileID: 8498988524114967885, guid: 80021d6b71b09004c923f5e93f2ff301,
     type: 3}
   originalRootBone: {fileID: 1930287251929946947}
+--- !u!114 &-8120354522865750153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466751964908761399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31add84179647184488006962b9d3156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1164339996462037233
 GameObject:
   m_ObjectHideFlags: 0
